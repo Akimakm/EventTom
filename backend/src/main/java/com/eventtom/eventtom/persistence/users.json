@@ -1,0 +1,26 @@
+[
+  {
+    "username": "kunde1",
+    "email": "kunde1@example.com",
+    "password": "passwort123",
+    "role": "CUSTOMER"
+  },
+  {
+    "username": "kunde2",
+    "email": "kunde2@example.com",
+    "password": "passwort123",
+    "role": "CUSTOMER"
+  },
+  {
+    "username": "eventcreator",
+    "email": "creator@example.com",
+    "password": "passwort123",
+    "role": "EVENTCREATOR"
+  },
+  {
+    "username": "eventmanager",
+    "email": "manager@example.com",
+    "password": "passwort123",
+    "role": "EVENTMANAGER"
+  }
+]
