@@ -1,25 +1,25 @@
 [
   {
+    "id": 1,
     "username": "kunde1",
-    "email": "kunde1@example.com",
     "password": "passwort123",
     "role": "CUSTOMER"
   },
   {
+    "id": 2,
     "username": "kunde2",
-    "email": "kunde2@example.com",
     "password": "passwort123",
     "role": "CUSTOMER"
   },
   {
+    "id": 3,
     "username": "eventcreator",
-    "email": "creator@example.com",
     "password": "passwort123",
     "role": "EVENTCREATOR"
   },
   {
+    "id": 4,
     "username": "eventmanager",
-    "email": "manager@example.com",
     "password": "passwort123",
     "role": "EVENTMANAGER"
   }

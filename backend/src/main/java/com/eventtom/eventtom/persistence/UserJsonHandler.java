@@ -1,7 +1,6 @@
 package com.eventtom.eventtom.persistence;
 
 import com.eventtom.eventtom.application.model.User;
-import com.eventtom.eventtom.persistence.DataPersistence;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +11,7 @@ import java.util.List;
 @Component
 public class UserJsonHandler implements DataPersistence<User> {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final File file = new File("users.json");
+    private final File file = new File("backend/src/main/java/com/eventtom/eventtom/persistence/users.json");
 
     @Override
     public void save(Object object) {
