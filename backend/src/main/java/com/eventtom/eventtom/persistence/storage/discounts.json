@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "code": "EARLY_BIRD",
+    "discount": 10.0,
+    "client": {
+      "id": 1,
+      "name": "Max Mustermann"
+    }
+  },
+  {
+    "id": 2,
+    "code": "GROUP_DISCOUNT",
+    "discount": 15.0,
+    "client": {
+      "id": 2,
+      "name": "Jane Smith"
+    }
+  }
+]

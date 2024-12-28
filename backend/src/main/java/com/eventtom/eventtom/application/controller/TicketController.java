@@ -1,6 +1,6 @@
 package com.eventtom.eventtom.application.controller;
 
-import com.eventtom.eventtom.persistence.TicketJsonHandler;
+import com.eventtom.eventtom.persistence.handlers.TicketJsonHandler;
 import com.eventtom.eventtom.application.model.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

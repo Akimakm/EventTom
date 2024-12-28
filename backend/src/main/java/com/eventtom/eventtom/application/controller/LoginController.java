@@ -1,6 +1,6 @@
 package com.eventtom.eventtom.application.controller;
 
-import com.eventtom.eventtom.persistence.UserJsonHandler;
+import com.eventtom.eventtom.persistence.handlers.UserJsonHandler;
 import com.eventtom.eventtom.application.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +36,10 @@ public class LoginController {
                 Map<String, String> response = new HashMap<>();
                 response.put("message", "Login successful");
                 response.put("sessionId", sessionId);
+                response.put("username", username);
+                response.put("role", user.getRole());
+                response.put("id", user.getId().toString());
+
                 return response;
             }
         }

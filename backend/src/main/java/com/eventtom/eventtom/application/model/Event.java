@@ -7,7 +7,6 @@ public class Event {
     private String title;
     private int numberOfTickets;
     private double ticketBasePrice;
-    private double ticketTotalPrice;
     private String date;
     private String time;
     private String location;
