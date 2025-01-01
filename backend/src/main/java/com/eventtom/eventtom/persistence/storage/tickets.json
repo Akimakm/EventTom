@@ -1,0 +1,141 @@
+[ {
+  "id" : 1,
+  "client" : {
+    "id" : 1,
+    "username" : "kunde1",
+    "password" : "passwort123",
+    "role" : "CUSTOMER",
+    "name" : "Max Mustermann"
+  },
+  "event" : {
+    "id" : 1,
+    "title" : "Rock Concert",
+    "numberOfTickets" : 99,
+    "ticketBasePrice" : 50.0,
+    "date" : "2024-05-15",
+    "time" : "19:00",
+    "location" : "Stadium A",
+    "description" : "A night of amazing music with top artists.",
+    "threshold" : 10.0
+  }
+}, {
+  "id" : 2,
+  "client" : {
+    "id" : 1,
+    "username" : "kunde1",
+    "password" : "passwort123",
+    "role" : "CUSTOMER",
+    "name" : "Max Mustermann"
+  },
+  "event" : {
+    "id" : 1,
+    "title" : "Rock Concert",
+    "numberOfTickets" : 98,
+    "ticketBasePrice" : 50.0,
+    "date" : "2024-05-15",
+    "time" : "19:00",
+    "location" : "Stadium A",
+    "description" : "A night of amazing music with top artists.",
+    "threshold" : 10.0
+  }
+}, {
+  "id" : 3,
+  "client" : {
+    "id" : 1,
+    "username" : "kunde1",
+    "password" : "passwort123",
+    "role" : "CUSTOMER",
+    "name" : "Max Mustermann"
+  },
+  "event" : {
+    "id" : 1,
+    "title" : "Rock Concert",
+    "numberOfTickets" : 97,
+    "ticketBasePrice" : 50.0,
+    "date" : "2024-05-15",
+    "time" : "19:00",
+    "location" : "Stadium A",
+    "description" : "A night of amazing music with top artists.",
+    "threshold" : 10.0
+  }
+}, {
+  "id" : 4,
+  "client" : {
+    "id" : 1,
+    "username" : "kunde1",
+    "password" : "passwort123",
+    "role" : "CUSTOMER",
+    "name" : "Max Mustermann"
+  },
+  "event" : {
+    "id" : 1,
+    "title" : "Rock Concert",
+    "numberOfTickets" : 96,
+    "ticketBasePrice" : 50.0,
+    "date" : "2024-05-15",
+    "time" : "19:00",
+    "location" : "Stadium A",
+    "description" : "A night of amazing music with top artists.",
+    "threshold" : 10.0
+  }
+}, {
+  "id" : 5,
+  "client" : {
+    "id" : 1,
+    "username" : "kunde1",
+    "password" : "passwort123",
+    "role" : "CUSTOMER",
+    "name" : "Max Mustermann"
+  },
+  "event" : {
+    "id" : 1,
+    "title" : "Rock Concert",
+    "numberOfTickets" : 93,
+    "ticketBasePrice" : 50.0,
+    "date" : "2024-05-15",
+    "time" : "19:00",
+    "location" : "Stadium A",
+    "description" : "A night of amazing music with top artists.",
+    "threshold" : 10.0
+  }
+}, {
+  "id" : 6,
+  "client" : {
+    "id" : 1,
+    "username" : "kunde1",
+    "password" : "passwort123",
+    "role" : "CUSTOMER",
+    "name" : "Max Mustermann"
+  },
+  "event" : {
+    "id" : 1,
+    "title" : "Rock Concert",
+    "numberOfTickets" : 93,
+    "ticketBasePrice" : 50.0,
+    "date" : "2024-05-15",
+    "time" : "19:00",
+    "location" : "Stadium A",
+    "description" : "A night of amazing music with top artists.",
+    "threshold" : 10.0
+  }
+}, {
+  "id" : 7,
+  "client" : {
+    "id" : 1,
+    "username" : "kunde1",
+    "password" : "passwort123",
+    "role" : "CUSTOMER",
+    "name" : "Max Mustermann"
+  },
+  "event" : {
+    "id" : 1,
+    "title" : "Rock Concert",
+    "numberOfTickets" : 93,
+    "ticketBasePrice" : 50.0,
+    "date" : "2024-05-15",
+    "time" : "19:00",
+    "location" : "Stadium A",
+    "description" : "A night of amazing music with top artists.",
+    "threshold" : 10.0
+  }
+} ]

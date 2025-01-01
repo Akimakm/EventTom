@@ -2,6 +2,7 @@ package com.eventtom.eventtom.persistence.handlers;
 
 import com.eventtom.eventtom.application.model.Event;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class EventJsonHandler implements DataPersistence<Event> {
     @Override
     public void writeAll(List<Event> events) {
         try {
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
             objectMapper.writeValue(file, events);
         } catch (Exception e) {
             e.printStackTrace();

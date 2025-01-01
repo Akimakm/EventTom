@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import {useState} from "react";
+import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import "./Login.css";
 
 const LoginPage = () => {
     const [username, setUsername] = useState("");
@@ -35,38 +37,37 @@ const LoginPage = () => {
                 navigate("/events");
             } else {
                 const errorData = await response.text();
-                setMessage("Login failed: " + errorData);
+                console.log("Error: " + errorData);
+                setMessage("Login failed: Wrong username or password");
             }
         } catch (error) {
-            setMessage("An error occurred: " + error.message);
+            console.log("An error occurred: " + error.message);
         }
     };
 
     return (
-        <div style={{ maxWidth: "400px", margin: "0 auto", padding: "1em" }}>
+        <div className="container">
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
-                <div style={{ marginBottom: "1em" }}>
+                <div>
                     <label>Username:</label>
                     <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
-                        style={{ width: "100%", padding: "0.5em" }}
                     />
                 </div>
-                <div style={{ marginBottom: "1em" }}>
+                <div>
                     <label>Password:</label>
                     <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        style={{ width: "100%", padding: "0.5em" }}
                     />
                 </div>
-                <button type="submit" style={{ padding: "0.5em", width: "100%" }}>
+                <button type="submit">
                     Login
                 </button>
             </form>

@@ -1,57 +1,60 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import { RoleStrategy } from './RoleStrategy';
 
-const CustomerStrategy = ({ eventDetails }) => {
-    const [quantity, setQuantity] = useState(1);
-    const [selectedDiscount, setSelectedDiscount] = useState(eventDetails.discounts[0]?.id || null);
+export class CustomerStrategy extends RoleStrategy {
+    // @ts-ignore
+    renderDetails(eventDetails: any, state: any, handlers: any): React.JSX.Element {
+        const { quantity, selectedVoucher, message, totalPrice } = state;
+        const { handleQuantityChange, handleVoucherChange, handlePurchase } = handlers;
 
-    const handleQuantityChange = (e) => {
-        setQuantity(Number(e.target.value));
-    };
-
-    const handleDiscountChange = (e) => {
-        setSelectedDiscount(Number(e.target.value));
-    };
-
-    const calculateTotalPrice = () => {
-        const basePrice = eventDetails.price;
-        const taxRate = 0.1; // Assuming a 10% tax rate
-        const discount = eventDetails.discounts.find(discount => discount.id === selectedDiscount)?.discount || 0;
-        const priceAfterDiscount = basePrice * (1 - discount / 100);
-        const totalPrice = priceAfterDiscount * quantity * (1 + taxRate);
-        return totalPrice.toFixed(2);
-    };
-
-    return (
-        <div>
-            <h2>{eventDetails.title}</h2>
-            <p>{eventDetails.description}</p>
-            <p>Date: {eventDetails.date}</p>
-            <p>Location: {eventDetails.location}</p>
-            <p>Price: ${eventDetails.price}</p>
-            <p>Tickets Available: {eventDetails.ticketsAvailable}</p>
+        return (
             <div>
-                <h3>Buy Tickets</h3>
-                <input
-                    type="number"
-                    placeholder="Quantity"
-                    min="1"
-                    max={eventDetails.ticketsAvailable}
-                    value={quantity}
-                    onChange={handleQuantityChange}
-                />
-                <select value={selectedDiscount} onChange={handleDiscountChange}>
-                    {eventDetails.discounts.map((discount, index) => (
-                        <option key={index} value={discount.id}>
-                            {discount.code} - {discount.discount}%
-                        </option>
-                    ))}
-                </select>
-                <p>Total Price: ${calculateTotalPrice()}</p>
-                <button>Buy Tickets</button>
+                <h2>{eventDetails.title}</h2>
+                <p>{eventDetails.description}</p>
+                <p>Date: {eventDetails.date}</p>
+                <p>Time: {eventDetails.time}</p>
+                <p>Location: {eventDetails.location}</p>
+                <p>Price per Ticket: ${eventDetails.price.toFixed(2)}</p>
+                <p>Tickets Available: {eventDetails.ticketsAvailable}</p>
+                <div>
+                    <h3>Buy Tickets</h3>
+                    <label>
+                        Number of Tickets:
+                        <input
+                            type="number"
+                            min="1"
+                            max={eventDetails.ticketsAvailable}
+                            value={quantity}
+                            onChange={handleQuantityChange}
+                        />
+                    </label>
+                    <br />
+                    <label>
+                        Apply Voucher:
+                        <select value={selectedVoucher || ''} onChange={handleVoucherChange}>
+                            <option value="">No Voucher</option>
+                            {eventDetails.discounts.map((discount: any) => (
+                                <option key={discount.id} value={discount.id}>
+                                    {discount.code} - {discount.discount}%
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+                    <br />
+                    <h4>Total Price: ${totalPrice.toFixed(2)}</h4>
+                    <button onClick={handlePurchase}>Buy Tickets</button>
+                    {message && <p>{message}</p>}
+                </div>
             </div>
-        </div>
-    );
-};
+        );
+    }
 
-export default CustomerStrategy;
+    renderHome(): React.JSX.Element {
+        return (
+            <div>
+                <h1>Welcome to the Customer Home Page</h1>
+                {/* Add any other customer-specific home content here */}
+            </div>
+        );
+    }
+}

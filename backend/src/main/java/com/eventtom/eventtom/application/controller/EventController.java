@@ -2,7 +2,6 @@ package com.eventtom.eventtom.application.controller;
 
 import com.eventtom.eventtom.application.model.Discount;
 import com.eventtom.eventtom.application.model.Ticket;
-import com.eventtom.eventtom.persistence.handlers.ClientJsonHandler;
 import com.eventtom.eventtom.persistence.handlers.DiscountJsonHandler;
 import com.eventtom.eventtom.persistence.handlers.EventJsonHandler;
 import com.eventtom.eventtom.application.model.Event;
@@ -32,10 +31,16 @@ public class EventController {
     }
 
     @PostMapping
-    public void createEvent(@RequestBody Event event) {
-        List<Event> events = eventJsonHandler.readAll();
+    @ResponseBody
+    public Map<String, String> createEvent(@RequestBody Event event) {
+        List<Event> events = new ArrayList<>(eventJsonHandler.readAll());
+        event.setId((long) (events.size() + 1));
         events.add(event);
         eventJsonHandler.writeAll(events);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Event created successfully");
+        return response; // Directly return the map
+
     }
 
     @GetMapping("/{id}")
@@ -77,6 +82,7 @@ public class EventController {
         response.put("title", event.getTitle());
         response.put("description", event.getDescription());
         response.put("date", event.getDate());
+        response.put("time", event.getTime());
         response.put("location", event.getLocation());
         response.put("price", event.getTicketBasePrice());
         response.put("ticketsAvailable", event.getNumberOfTickets());
