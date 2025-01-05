@@ -1,6 +1,6 @@
 import * as React from "react";
 import {useState} from "react";
-import {Navigate, useNavigate} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 import "./CreateEvent.css";
 
 const CreateEvent = () => {
@@ -16,12 +16,12 @@ const CreateEvent = () => {
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const handleChange = (e) => {
+    const handleChange = (e: { target: { name: any; value: any; }; }) => {
         const { name, value } = e.target;
         setEventData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: { preventDefault: () => void; }) => {
 
         e.preventDefault();
 

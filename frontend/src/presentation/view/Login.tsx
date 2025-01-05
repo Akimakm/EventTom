@@ -1,5 +1,4 @@
-import {useState} from "react";
-import * as React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
@@ -9,7 +8,7 @@ const LoginPage = () => {
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
+    const handleLogin = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
         const credentials = {
@@ -40,7 +39,7 @@ const LoginPage = () => {
                 console.log("Error: " + errorData);
                 setMessage("Login failed: Wrong username or password");
             }
-        } catch (error) {
+        } catch (error:any) {
             console.log("An error occurred: " + error.message);
         }
     };

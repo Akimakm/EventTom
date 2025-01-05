@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { RoleStrategy } from './RoleStrategy';
 
 export class EventManagerStrategy extends RoleStrategy {
-    renderDetails(eventDetails) {
+    renderDetails(eventDetails:any) {
         const progress = eventDetails.progress;
         const thresholdStatus =
             progress >= eventDetails.threshold

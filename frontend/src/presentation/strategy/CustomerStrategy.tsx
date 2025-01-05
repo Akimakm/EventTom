@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { RoleStrategy } from './RoleStrategy';
 
 export class CustomerStrategy extends RoleStrategy {

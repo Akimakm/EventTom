@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { RoleStrategy } from './RoleStrategy';
 
 export class EventCreatorStrategy extends RoleStrategy {
-    renderDetails(eventDetails) {
+    renderDetails(eventDetails:any) {
         return (
             <div>
                 <h2>{eventDetails.title}</h2>
