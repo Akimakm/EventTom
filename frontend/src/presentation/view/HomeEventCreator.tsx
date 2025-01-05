@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import logo from '../img/logo.png';
-import "../styles/HomeEvent.css";
+import "../styles/HomeEventCreator.css";
 
-const HomeEvent = () => {
+const HomeEventCreator = () => {
     // State to toggle dropdown visibility
     const [showNotifications, setShowNotifications] = useState(false);
 
@@ -17,6 +16,13 @@ const HomeEvent = () => {
     // Toggle dropdown visibility
     const toggleNotifications = () => {
         setShowNotifications(!showNotifications);
+    };
+
+    const handleCreateEvent = () => {
+        // Action à effectuer lors du clic sur le bouton
+        console.log("Redirecting to Create Event page...");
+        // redirection vers create event :
+        window.location.href = "/create-event";
     };
 
     return (
@@ -44,6 +50,14 @@ const HomeEvent = () => {
                                             <li>
                                                 <a href="/event">Event</a>
                                             </li>
+                                            <li>
+                                                <button
+                                                    className="create-event-btn-menu"
+                                                    onClick={handleCreateEvent}
+                                                >
+                                                    Create Event
+                                                </button>
+                                            </li>
                                         </ul>
                                     </nav>
 
@@ -54,21 +68,21 @@ const HomeEvent = () => {
                                         </a>
                                         {/* Notification Bell */}
                                         <a className="mobile-hide notification-icon" href="/">
-                                        <div
-                                            className="notification-wrapper"
-                                            onClick={toggleNotifications}
-                                        >
-                                            <i className="fas fa-bell"></i>
-                                            {showNotifications && (
-                                                <div className="notification-dropdown">
-                                                    <ul>
-                                                        {notifications.map((notif, index) => (
-                                                            <li key={index}>{notif}</li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            )}
-                                        </div>
+                                            <div
+                                                className="notification-wrapper"
+                                                onClick={toggleNotifications}
+                                            >
+                                                <i className="fas fa-bell"></i>
+                                                {showNotifications && (
+                                                    <div className="notification-dropdown">
+                                                        <ul>
+                                                            {notifications.map((notif, index) => (
+                                                                <li key={index}>{notif}</li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                )}
+                                            </div>
                                         </a>
                                     </div>
                                 </div>
@@ -86,6 +100,12 @@ const HomeEvent = () => {
                             <div className="hero-text">
                                 <div className="hero-text-tablecell">
                                     <h1>Welcome To EventTom</h1>
+                                    <button
+                                        className="create-event-btn"
+                                        onClick={handleCreateEvent}
+                                    >
+                                        Create Event
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -96,4 +116,4 @@ const HomeEvent = () => {
     );
 };
 
-export default HomeEvent;
+export default HomeEventCreator;
