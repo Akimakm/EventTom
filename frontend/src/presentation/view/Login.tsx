@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "../img/logo.png";
+import "../styles/LoginPage.css";
 
 const LoginPage = () => {
     const [username, setUsername] = useState("");
@@ -26,10 +28,10 @@ const LoginPage = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem("sessionId", data.sessionId); // Store session ID in localStorage
-                localStorage.setItem("username", data.username); // Store username
-                localStorage.setItem("role", data.role); // Store role (add this to backend response)
-                localStorage.setItem("id", data.id); // Store clientId for customer
+                localStorage.setItem("sessionId", data.sessionId);
+                localStorage.setItem("username", data.username);
+                localStorage.setItem("role", data.role);
+                localStorage.setItem("id", data.id);
 
                 setMessage("Login successful! Redirecting...");
                 navigate("/events");
@@ -43,34 +45,42 @@ const LoginPage = () => {
     };
 
     return (
-        <div style={{ maxWidth: "400px", margin: "0 auto", padding: "1em" }}>
-            <h2>Login</h2>
-            <form onSubmit={handleLogin}>
-                <div style={{ marginBottom: "1em" }}>
-                    <label>Username:</label>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                        style={{ width: "100%", padding: "0.5em" }}
-                    />
-                </div>
-                <div style={{ marginBottom: "1em" }}>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        style={{ width: "100%", padding: "0.5em" }}
-                    />
-                </div>
-                <button type="submit" style={{ padding: "0.5em", width: "100%" }}>
-                    Login
-                </button>
-            </form>
-            {message && <p>{message}</p>}
+        <div className="login-page">
+            {/* Logo */}
+            <div className="logo-container">
+                <img src={logo} alt="EventTom" className="logo" />
+            </div>
+
+            {/* Login Form */}
+            <div className="login-container">
+                <form onSubmit={handleLogin} className="login-form">
+                    <h2>Login</h2>
+                    <div className="form-group">
+                        <label htmlFor="username">Username:</label>
+                        <input
+                            type="text"
+                            id="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="login-button">
+                        Login
+                    </button>
+                </form>
+                {message && <p className="login-message">{message}</p>}
+            </div>
         </div>
     );
 };
