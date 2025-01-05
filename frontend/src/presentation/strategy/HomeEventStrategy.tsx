@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import logo from '../img/logo.png';
-
 import "../styles/HomeEventStrategy.css";
 
 const HomeEventStrategy = () => {
@@ -31,8 +30,8 @@ const HomeEventStrategy = () => {
                                 <div className="header-content">
                                     {/* Logo */}
                                     <div className="site-logo">
-                                        <a href="Home.js">
-                                            <img className="imagelogo" src={logo} />
+                                        <a href="/home">
+                                            <img className="imagelogo" src={logo} alt="Logo" />
                                         </a>
                                     </div>
 
@@ -54,7 +53,7 @@ const HomeEventStrategy = () => {
                                             <i className="fas fa-shopping-cart"></i>
                                         </a>
                                         {/* Notification Bell */}
-                                        <a className="mobile-hide notification-icon">
+                                        <a className="mobile-hide notification-icon" href="/">
                                             <div
                                                 className="notification-wrapper"
                                                 onClick={toggleNotifications}

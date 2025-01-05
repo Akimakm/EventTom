@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import logo from "../img/logo.png";
+import "../styles/LoginPage.css";
 
 const LoginPage = () => {
     const [username, setUsername] = useState("");
@@ -8,7 +9,7 @@ const LoginPage = () => {
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = async (e: { preventDefault: () => void; }) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
 
         const credentials = {
@@ -27,50 +28,59 @@ const LoginPage = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem("sessionId", data.sessionId); // Store session ID in localStorage
-                localStorage.setItem("username", data.username); // Store username
-                localStorage.setItem("role", data.role); // Store role (add this to backend response)
-                localStorage.setItem("id", data.id); // Store clientId for customer
+                localStorage.setItem("sessionId", data.sessionId);
+                localStorage.setItem("username", data.username);
+                localStorage.setItem("role", data.role);
+                localStorage.setItem("id", data.id);
 
                 setMessage("Login successful! Redirecting...");
                 navigate("/events");
             } else {
                 const errorData = await response.text();
-                console.log("Error: " + errorData);
-                setMessage("Login failed: Wrong username or password");
+                setMessage("Login failed: " + errorData);
             }
-        } catch (error:any) {
-            console.log("An error occurred: " + error.message);
+        } catch (error) {
+            setMessage("An error occurred: " + error.message);
         }
     };
 
     return (
-        <div className="container">
-            <h2>Login</h2>
-            <form onSubmit={handleLogin}>
-                <div>
-                    <label>Username:</label>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">
-                    Login
-                </button>
-            </form>
-            {message && <p>{message}</p>}
+        <div className="login-page">
+            {/* Logo */}
+            <div className="logo-container">
+                <img src={logo} alt="EventTom" className="logo" />
+            </div>
+
+            {/* Login Form */}
+            <div className="login-container">
+                <form onSubmit={handleLogin} className="login-form">
+                    <h2>Login</h2>
+                    <div className="form-group">
+                        <label htmlFor="username">Username:</label>
+                        <input
+                            type="text"
+                            id="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="login-button">
+                        Login
+                    </button>
+                </form>
+                {message && <p className="login-message">{message}</p>}
+            </div>
         </div>
     );
 };
