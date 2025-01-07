@@ -79,7 +79,7 @@ const HomeEvent = () => {
             </div>
 
             {/* Hero Area */}
-            <div className="hero-area hero-bg">
+            <div className="hero-area hero-bg home">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-9 offset-lg-2 text-center">

@@ -178,7 +178,7 @@ nav.main-menu ul ul.sub-menu li a {
 }
 
 /* Zone "Hero" */
-.hero-area.hero-bg {
+.hero-area.hero-bg.home {
     display: flex;
     justify-content: center;
     align-items: center;
