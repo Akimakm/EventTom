@@ -2,6 +2,7 @@ package com.eventtom.eventtom.persistence.handlers;
 
 import com.eventtom.eventtom.application.model.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -49,6 +50,7 @@ public class EmployeeJsonHandler implements DataPersistence<Employee> {
     @Override
     public void writeAll(List<Employee> employees) {
         try {
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
             objectMapper.writeValue(file, employees);
         } catch (Exception e) {
             e.printStackTrace();

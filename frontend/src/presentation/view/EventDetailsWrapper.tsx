@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { useParams } from "react-router-dom";
 import EventPageContainer from "./EventPageContainer";
 
@@ -7,6 +7,7 @@ const EventDetailsWrapper = () => {
     const role:any = localStorage.getItem("role") || "customer"; // Fallback to 'customer'
     const clientId : any = localStorage.getItem("clientId"); // Optional, only for customers
 
+    // @ts-ignore
     return <EventPageContainer eventId={id} role={role} clientId={clientId} />;
 };
 

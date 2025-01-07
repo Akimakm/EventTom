@@ -5,6 +5,7 @@
     "password": "passwort123",
     "role": "CUSTOMER",
     "name": "Max Mustermann"
+  },
   {
     "id": 2,
     "username": "kunde2",

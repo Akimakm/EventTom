@@ -9,7 +9,7 @@ const LoginPage = () => {
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
+    const handleLogin = async (e:any) => {
         e.preventDefault();
 
         const credentials = {
@@ -39,7 +39,7 @@ const LoginPage = () => {
                 const errorData = await response.text();
                 setMessage("Login failed: " + errorData);
             }
-        } catch (error) {
+        } catch (error:any) {
             setMessage("An error occurred: " + error.message);
         }
     };

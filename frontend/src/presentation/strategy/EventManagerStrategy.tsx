@@ -2,7 +2,7 @@ import React from 'react';
 import { RoleStrategy } from './RoleStrategy';
 
 export class EventManagerStrategy extends RoleStrategy {
-    render(eventDetails) {
+    renderDetails(eventDetails:any) {
         const progress = eventDetails.progress;
         const thresholdStatus =
             progress >= eventDetails.threshold
@@ -14,6 +14,7 @@ export class EventManagerStrategy extends RoleStrategy {
                 <h2>{eventDetails.title}</h2>
                 <p>{eventDetails.description}</p>
                 <p>Date: {eventDetails.date}</p>
+                <p>Time: {eventDetails.time}</p>
                 <p>Location: {eventDetails.location}</p>
                 <p>Price: ${eventDetails.price}</p>
                 <p>Tickets Sold: {eventDetails.ticketsSold}</p>
@@ -26,5 +27,8 @@ export class EventManagerStrategy extends RoleStrategy {
                 </div>
             </div>
         );
+    }
+    renderHome() {
+        return <h2>Events</h2>;
     }
 }

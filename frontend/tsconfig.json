@@ -1,12 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": {
-      "*": [
-        "*",
-        "components/*"
-      ]
-    },
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
@@ -25,18 +19,16 @@
     "importHelpers": false,
     "inlineSourceMap": false,
     "inlineSources": false,
-    "isolatedModules": false,
+    "isolatedModules": true,
     "lib": [
       "es2017",
       "esnext.asynciterable",
-      "dom",
-      "es2015",
+      "dom"
     ],
-    "locale": "en-us",
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "newLine": "lf",
-    "noEmit": false,
+    "noEmit": true,
     "noEmitHelpers": false,
     "noEmitOnError": true,
     "noErrorTruncation": true,
@@ -62,10 +54,11 @@
     "traceResolution": false,
     "rootDir": "",
     "outDir": "../../build/lib",
-    "typeRoots": []
+    "typeRoots": [],
+    "jsx": "preserve",
+    "resolveJsonModule": true
   },
   "include": [
-    "**/*.ts"
-  ],
-  "exclude": []
+    "src"
+  ]
 }

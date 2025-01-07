@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import logo from '../img/logo.png';
 import "../styles/HomeEventStrategy.css";
@@ -129,7 +129,7 @@ const HomeEventStrategy = () => {
 
                     {/* Event Items */}
                     <div className="row card">
-                        {[1, 2, 3].map((item, index) => (
+                        {[1, 2, 3].map((_item, index) => (
                             <div className="col-lg-4 col-md-6 col-12" key={index}>
                                 <div className="single-latest-news">
                                     <a href="/">

@@ -1,7 +1,13 @@
+import { JSX } from "react";
 
-export class RoleStrategy {
-    render(eventDetails:any)  {
-        console.log(eventDetails);
-        throw new Error("Method 'render()' must be implemented.");
+
+export abstract class RoleStrategy {
+
+    renderDetails(eventDetails:any): JSX.Element {
+        console.log('eventDetails', eventDetails);
+        throw new Error('render() must be implemented in the derived class');
+    }
+    renderHome() {
+        throw new Error('renderHome() must be implemented in the derived class');
     }
 }
