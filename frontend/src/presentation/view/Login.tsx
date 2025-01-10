@@ -34,7 +34,7 @@ const LoginPage = () => {
                 localStorage.setItem("id", data.id);
 
                 setMessage("Login successful! Redirecting...");
-                navigate("/events");
+                navigate("/home");
             } else {
                 const errorData = await response.text();
                 setMessage("Login failed: " + errorData);

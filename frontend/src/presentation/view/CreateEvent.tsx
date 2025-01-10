@@ -1,9 +1,9 @@
 import * as React from "react";
 import {useState} from "react";
 import {Navigate} from 'react-router-dom';
-import "./CreateEvent.css";
+import "../styles/CreateEvent.css";
 
-const CreateEvent = () => {
+const CreateEvent: React.FC= () => {
     const [eventData, setEventData] = useState({
         title: '',
         description: '',
@@ -13,6 +13,7 @@ const CreateEvent = () => {
         numberOfTickets: '',
         threshold: '',
         time: '',
+        fee: '',
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -49,6 +50,7 @@ const CreateEvent = () => {
                     numberOfTickets: '',
                     threshold: '',
                     time: '',
+                    fee: '',
                 });
                 setIsSubmitted(true);
             })
@@ -63,7 +65,7 @@ const CreateEvent = () => {
     }
 
     return (
-        <div className="container">
+        <div className="container123">
             <h2 className="heading">Create Event</h2>
             <form onSubmit={handleSubmit} className="form">
                 <div className="form-group">
@@ -126,6 +128,17 @@ const CreateEvent = () => {
                         type="number"
                         name="ticketBasePrice"
                         value={eventData.ticketBasePrice}
+                        onChange={handleChange}
+                        required
+                        className="input"
+                    />
+                </div>
+                <div className="form-group">
+                    <label className="label">Fee</label>
+                    <input
+                        type="number"
+                        name="fee"
+                        value={eventData.fee}
                         onChange={handleChange}
                         required
                         className="input"

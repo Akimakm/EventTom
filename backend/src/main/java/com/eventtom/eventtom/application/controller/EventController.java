@@ -1,14 +1,17 @@
 package com.eventtom.eventtom.application.controller;
 
 import com.eventtom.eventtom.application.model.Discount;
+import com.eventtom.eventtom.application.model.Notification;
 import com.eventtom.eventtom.application.model.Ticket;
 import com.eventtom.eventtom.persistence.handlers.DiscountJsonHandler;
 import com.eventtom.eventtom.persistence.handlers.EventJsonHandler;
 import com.eventtom.eventtom.application.model.Event;
 import com.eventtom.eventtom.persistence.handlers.TicketJsonHandler;
+import com.eventtom.eventtom.persistence.handlers.observer.NotificationSubject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/events")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class EventController {
     @Autowired
     private EventJsonHandler eventJsonHandler;
@@ -24,6 +27,8 @@ public class EventController {
     private TicketJsonHandler ticketJsonHandler;
     @Autowired
     private DiscountJsonHandler discountJsonHandler;
+    @Autowired
+    private NotificationSubject notificationSubject;
 
     @GetMapping
     public List<Event> getAllEvents() {
@@ -37,6 +42,14 @@ public class EventController {
         event.setId((long) (events.size() + 1));
         events.add(event);
         eventJsonHandler.writeAll(events);
+
+        Notification notification = new Notification();
+        notification.setType("NEW_EVENT");
+        notification.setMessage("A new event has been created: " + event.getTitle());
+        notification.setTimestamp(LocalDateTime.now().toString());
+        notification.setEvent(event);
+        notificationSubject.notifyObservers(notification);
+
         Map<String, String> response = new HashMap<>();
         response.put("message", "Event created successfully");
         return response; // Directly return the map
@@ -86,6 +99,7 @@ public class EventController {
         response.put("location", event.getLocation());
         response.put("price", event.getTicketBasePrice());
         response.put("ticketsAvailable", event.getNumberOfTickets());
+        response.put("fee", event.getFee());
 
         switch (role.toLowerCase()) {
             case "customer":

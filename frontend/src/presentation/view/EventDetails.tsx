@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { CustomerStrategy } from '../strategy/CustomerStrategy';
 import { EventCreatorStrategy } from '../strategy/EventCreatorStrategy';
 import { EventManagerStrategy } from '../strategy/EventManagerStrategy';
+import NotificationWebSocket from "../../NotificationWebSocket";
+//import NotificationWebSocket from '../../NotificationWebSocket';
 
 export const EventDetailsPage = ({ role, eventDetails }: { role: string; eventDetails: any }) => {
+    const [currentEventDetails, setEventDetails] = useState(eventDetails); // Keep track of event details
     const [quantity, setQuantity] = useState(1);
     const [selectedVoucher, setSelectedVoucher] = useState<number | null>(null);
     const [message, setMessage] = useState('');
@@ -11,9 +14,9 @@ export const EventDetailsPage = ({ role, eventDetails }: { role: string; eventDe
 
     // Update total price dynamically whenever quantity or voucher changes
     useEffect(() => {
-        const basePrice = eventDetails.price * quantity;
+        const basePrice = currentEventDetails.price * quantity + currentEventDetails.fee;
         if (selectedVoucher !== null) {
-            const discount = eventDetails.discounts.find(
+            const discount = currentEventDetails.discounts.find(
                 (discount: any) => discount.id === selectedVoucher
             )?.discount || 0;
             const discountedPrice = basePrice * (1 - discount / 100);
@@ -21,17 +24,48 @@ export const EventDetailsPage = ({ role, eventDetails }: { role: string; eventDe
         } else {
             setTotalPrice(basePrice);
         }
-    }, [quantity, selectedVoucher, eventDetails.price, eventDetails.discounts]);
+    }, [quantity, selectedVoucher, currentEventDetails]);
 
+    useEffect(() => {
+        let client: any;
+
+        const initializeWebSocket = () => {
+            client = NotificationWebSocket((notification: any) => {
+                if (notification.type === "EVENT_UPDATE") {
+                    console.log("Event update notification received:", notification);
+
+                    // Check if the notification matches the current event
+                    if (notification.event.id === currentEventDetails.id) {
+                        setEventDetails((prevDetails: any) => ({
+                            ...prevDetails,
+                            ticketsSold: notification.ticketsSold,
+                            ticketsAvailable: notification.event.numberOfTickets,
+                        }));
+                    }
+                }
+            });
+        };
+        initializeWebSocket(); // Initialize the WebSocket connection
+        console.log("WebSocket initialized");
+
+        // Cleanup function to deactivate the WebSocket
+        return () => client.deactivate() ;
+
+    }, [currentEventDetails.id]);
+
+
+    // Handle quantity change
     const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = Math.max(1, Math.min(Number(e.target.value), eventDetails.ticketsAvailable));
+        const value = Math.max(1, Math.min(Number(e.target.value), currentEventDetails.ticketsAvailable));
         setQuantity(value);
     };
 
+    // Handle voucher change
     const handleVoucherChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedVoucher(Number(e.target.value));
     };
 
+    // Handle ticket purchase
     const handlePurchase = () => {
         const clientId = localStorage.getItem('id'); // Retrieve client ID from local storage
 
@@ -41,7 +75,7 @@ export const EventDetailsPage = ({ role, eventDetails }: { role: string; eventDe
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                eventId: eventDetails.id,
+                eventId: currentEventDetails.id,
                 quantity,
                 voucherId: selectedVoucher,
                 clientId,
@@ -57,13 +91,17 @@ export const EventDetailsPage = ({ role, eventDetails }: { role: string; eventDe
             })
             .then((data) => {
                 setMessage(data.message); // Display success message
-                eventDetails.ticketsAvailable -= quantity; // Update tickets available
+                setEventDetails((prevDetails:any) => ({
+                    ...prevDetails,
+                    ticketsAvailable: prevDetails.ticketsAvailable - quantity,
+                })); // Update tickets available
             })
             .catch((error) => {
                 setMessage(error.message); // Display error message
             });
     };
 
+    // Dynamically determine the appropriate strategy
     const getStrategy = (role: string) => {
         switch (role.toLowerCase()) {
             case 'customer':
@@ -79,8 +117,9 @@ export const EventDetailsPage = ({ role, eventDetails }: { role: string; eventDe
 
     const strategy = getStrategy(role);
 
+    // Delegate rendering to the strategy, passing updated event details
     return strategy.renderDetails(
-        eventDetails,
+        currentEventDetails,
         { quantity, selectedVoucher, message, totalPrice },
         { handleQuantityChange, handleVoucherChange, handlePurchase }
     );

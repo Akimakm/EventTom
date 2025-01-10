@@ -3,11 +3,6 @@ import { JSX } from "react";
 
 export abstract class RoleStrategy {
 
-    renderDetails(eventDetails:any): JSX.Element {
-        console.log('eventDetails', eventDetails);
-        throw new Error('render() must be implemented in the derived class');
-    }
-    renderHome() {
-        throw new Error('renderHome() must be implemented in the derived class');
-    }
+    abstract renderDetails(eventDetails:any, state?: any, handlers?: any): JSX.Element;
+    abstract renderHome({toggleNotifications, showNotifications, notifications,}: { toggleNotifications: () => void; showNotifications: boolean; notifications: string[]; }): JSX.Element;
 }

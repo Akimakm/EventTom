@@ -1,24 +1,24 @@
 package com.eventtom.eventtom.application.controller;
 
-import com.eventtom.eventtom.application.model.Client;
-import com.eventtom.eventtom.application.model.Discount;
-import com.eventtom.eventtom.application.model.Event;
+import com.eventtom.eventtom.application.model.*;
 import com.eventtom.eventtom.persistence.handlers.ClientJsonHandler;
 import com.eventtom.eventtom.persistence.handlers.DiscountJsonHandler;
 import com.eventtom.eventtom.persistence.handlers.EventJsonHandler;
 import com.eventtom.eventtom.persistence.handlers.TicketJsonHandler;
-import com.eventtom.eventtom.application.model.Ticket;
+import com.eventtom.eventtom.persistence.handlers.observer.EventManagerObserver;
+import com.eventtom.eventtom.persistence.handlers.observer.NotificationSubject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/tickets")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class TicketController {
     @Autowired
     private TicketJsonHandler ticketJsonHandler;
@@ -31,6 +31,9 @@ public class TicketController {
 
     @Autowired
     private ClientJsonHandler clientJsonHandler;
+
+    @Autowired
+    private NotificationSubject notificationSubject;
 
     @GetMapping
     public List<Ticket> getAllTickets() {
@@ -99,7 +102,7 @@ public class TicketController {
         }
 
         // Calculate price
-        double totalPrice = event.getTicketBasePrice() * quantity;
+        double totalPrice = event.getTicketBasePrice() * quantity + event.getFee();
         if (voucherId != null) {
             // Find the voucher
             final Long finalVoucherId = voucherId;
@@ -144,11 +147,32 @@ public class TicketController {
         }
         ticketJsonHandler.writeAll(tickets);
 
+        // Notify observers
+        Notification notification = new Notification();
+        notification.setType("TICKET_PURCHASE");
+        notification.setMessage(quantity+" tickets have been purchased for event: " + event.getTitle());
+        notification.setEvent(event);
+        notification.setTimestamp(LocalDateTime.now().toString());
+        notificationSubject.notifyObservers(notification);
+        notification.setType("EVENT_UPDATE");
+        notification.setMessage("Event: " + event.getTitle() + " has been updated");
+        notification.setEvent(event);
+        notification.setTicketsSold(calculateTicketsSold(event));
+        notification.setTimestamp(LocalDateTime.now().toString());
+        notificationSubject.notifyObservers(notification);
+
+
         // Return success message
         return ResponseEntity.ok(Map.of(
                 "message", "Purchase successful",
                 "totalPrice", String.valueOf(totalPrice)
         ));
+    }
+    private int calculateTicketsSold(Event event) {
+        List<Ticket> tickets = ticketJsonHandler.readAll();
+        return (int) tickets.stream()
+                .filter(ticket -> ticket.getEvent().getId().equals(event.getId()))
+                .count();
     }
 
 }
