@@ -98,7 +98,7 @@ const EventTicketsPage = () => {
             </div>
 
             {/* Hero Area */}
-            <div className="hero-area hero-bg">
+            <div className="hero-area hero-bg your-ticket">
                 <div className="container">
                     <div className="hero-text">
                         <h1>Welcome to EventTom</h1>
