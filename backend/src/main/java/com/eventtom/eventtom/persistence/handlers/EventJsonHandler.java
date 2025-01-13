@@ -13,26 +13,6 @@ import java.io.File;
 public class EventJsonHandler implements DataPersistence<Event> {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final File file = new File("backend/src/main/java/com/eventtom/eventtom/persistence/storage/events.json");
-    @Override
-    public void save(Object object) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void delete(Object object) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void update(Object object) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public Object get(Long id) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     @Override
     public List<Event> readAll() {

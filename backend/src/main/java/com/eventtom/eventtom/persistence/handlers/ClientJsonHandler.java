@@ -13,25 +13,6 @@ import java.util.List;
 public class ClientJsonHandler implements DataPersistence<Client>{
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final File file = new File("backend/src/main/java/com/eventtom/eventtom/persistence/storage/clients.json");
-    @Override
-    public void save(Object object) {
-
-    }
-
-    @Override
-    public void delete(Object object) {
-
-    }
-
-    @Override
-    public void update(Object object) {
-
-    }
-
-    @Override
-    public Object get(Long id) {
-        return null;
-    }
 
     @Override
     public List<Client> readAll() {

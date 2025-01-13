@@ -2,12 +2,13 @@ import React from 'react';
 import { RoleStrategy } from './RoleStrategy';
 import logo from "../img/logo.png"
 import "../styles/HomeEvent.css"
+import "../styles/EventDetails.css"
 
 export class EventCreatorStrategy extends RoleStrategy {
 
     renderDetails(eventDetails:any) {
         return (
-            <div>
+            <div className="event-details-container">
                 <h2>{eventDetails.title}</h2>
                 <p>{eventDetails.description}</p>
                 <p>Date: {eventDetails.date}</p>
@@ -16,11 +17,12 @@ export class EventCreatorStrategy extends RoleStrategy {
                 <p>Price: ${eventDetails.price}</p>
                 <p>Fees: ${eventDetails.fee}</p>
                 <p>Tickets Available: {eventDetails.ticketsAvailable}</p>
-                <div>
+                <div className="buttons-container">
                     <button>Edit Event</button>
                     <button>Delete Event</button>
                 </div>
             </div>
+
         );
     }
     renderHome(): React.JSX.Element {

@@ -3,12 +3,11 @@ package com.eventtom.eventtom.application.controller;
 import com.eventtom.eventtom.application.model.Discount;
 import com.eventtom.eventtom.application.model.Notification;
 import com.eventtom.eventtom.application.model.Ticket;
-import com.eventtom.eventtom.persistence.handlers.DiscountJsonHandler;
-import com.eventtom.eventtom.persistence.handlers.EventJsonHandler;
+import com.eventtom.eventtom.persistence.handlers.DataPersistence;
 import com.eventtom.eventtom.application.model.Event;
-import com.eventtom.eventtom.persistence.handlers.TicketJsonHandler;
-import com.eventtom.eventtom.persistence.handlers.observer.NotificationSubject;
+import com.eventtom.eventtom.application.observer.NotificationSubject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -21,14 +20,22 @@ import java.util.Map;
 @RequestMapping("/api/events")
 @CrossOrigin(origins = "*")
 public class EventController {
+    private final DataPersistence<Event> eventJsonHandler;
+    private final DataPersistence<Ticket> ticketJsonHandler;
+    private final DataPersistence<Discount> discountJsonHandler;
+    private final NotificationSubject notificationSubject;
+
     @Autowired
-    private EventJsonHandler eventJsonHandler;
-    @Autowired
-    private TicketJsonHandler ticketJsonHandler;
-    @Autowired
-    private DiscountJsonHandler discountJsonHandler;
-    @Autowired
-    private NotificationSubject notificationSubject;
+    public EventController(
+            @Qualifier("eventJsonHandler") DataPersistence<Event> eventJsonHandler,
+            @Qualifier("ticketJsonHandler") DataPersistence<Ticket> ticketJsonHandler,
+            @Qualifier("discountJsonHandler") DataPersistence<Discount> discountJsonHandler,
+            NotificationSubject notificationSubject) {
+        this.eventJsonHandler = eventJsonHandler;
+        this.ticketJsonHandler = ticketJsonHandler;
+        this.discountJsonHandler = discountJsonHandler;
+        this.notificationSubject = notificationSubject;
+    }
 
     @GetMapping
     public List<Event> getAllEvents() {
@@ -144,6 +151,9 @@ public class EventController {
 
     private int calculateProgress(Event event) {
         int ticketsSold = calculateTicketsSold(event);
-        return (int) ((ticketsSold / (double) event.getNumberOfTickets()) * 100);
+        int remainingTickets = event.getNumberOfTickets(); // This now represents the remaining tickets
+        int totalTickets = ticketsSold + remainingTickets; // Calculate total tickets
+        return (int) ((ticketsSold / (double) totalTickets) * 100);
     }
+
 }

@@ -1,4 +1,3 @@
-// model/Notification.java
 package com.eventtom.eventtom.application.model;
 
 import lombok.Data;

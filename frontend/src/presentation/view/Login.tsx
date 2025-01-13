@@ -37,7 +37,8 @@ const LoginPage = () => {
                 navigate("/home");
             } else {
                 const errorData = await response.text();
-                setMessage("Login failed: " + errorData);
+                setMessage("Login failed:  Wrong Password or Username" );
+                console.log(errorData);
             }
         } catch (error:any) {
             setMessage("An error occurred: " + error.message);

@@ -1,9 +1,8 @@
-// NotificationConfig.java
-package com.eventtom.eventtom.persistence.handlers.config;
+package com.eventtom.eventtom.application.config;
 
-import com.eventtom.eventtom.persistence.handlers.observer.ClientObserver;
-import com.eventtom.eventtom.persistence.handlers.observer.EventManagerObserver;
-import com.eventtom.eventtom.persistence.handlers.observer.NotificationSubject;
+import com.eventtom.eventtom.application.observer.ClientObserver;
+import com.eventtom.eventtom.application.observer.EventManagerObserver;
+import com.eventtom.eventtom.application.observer.NotificationSubject;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration

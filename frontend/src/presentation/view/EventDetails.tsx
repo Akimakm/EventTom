@@ -3,6 +3,7 @@ import { CustomerStrategy } from '../strategy/CustomerStrategy';
 import { EventCreatorStrategy } from '../strategy/EventCreatorStrategy';
 import { EventManagerStrategy } from '../strategy/EventManagerStrategy';
 import NotificationWebSocket from "../../NotificationWebSocket";
+import {RoleStrategy} from "../strategy/RoleStrategy";
 //import NotificationWebSocket from '../../NotificationWebSocket';
 
 export const EventDetailsPage = ({ role, eventDetails }: { role: string; eventDetails: any }) => {
@@ -102,16 +103,16 @@ export const EventDetailsPage = ({ role, eventDetails }: { role: string; eventDe
     };
 
     // Dynamically determine the appropriate strategy
-    const getStrategy = (role: string) => {
+    const getStrategy = (role:any): RoleStrategy => {
         switch (role.toLowerCase()) {
-            case 'customer':
+            case "customer":
                 return new CustomerStrategy();
-            case 'eventcreator':
+            case "eventcreator":
                 return new EventCreatorStrategy();
-            case 'eventmanager':
+            case "eventmanager":
                 return new EventManagerStrategy();
             default:
-                throw new Error('Unknown role');
+                throw new Error("Unknown role");
         }
     };
 

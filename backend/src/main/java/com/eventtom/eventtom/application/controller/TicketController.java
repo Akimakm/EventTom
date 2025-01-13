@@ -1,13 +1,10 @@
 package com.eventtom.eventtom.application.controller;
 
 import com.eventtom.eventtom.application.model.*;
-import com.eventtom.eventtom.persistence.handlers.ClientJsonHandler;
-import com.eventtom.eventtom.persistence.handlers.DiscountJsonHandler;
-import com.eventtom.eventtom.persistence.handlers.EventJsonHandler;
-import com.eventtom.eventtom.persistence.handlers.TicketJsonHandler;
-import com.eventtom.eventtom.persistence.handlers.observer.EventManagerObserver;
-import com.eventtom.eventtom.persistence.handlers.observer.NotificationSubject;
+import com.eventtom.eventtom.persistence.handlers.*;
+import com.eventtom.eventtom.application.observer.NotificationSubject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,20 +17,25 @@ import java.util.Map;
 @RequestMapping("/api/tickets")
 @CrossOrigin(origins = "*")
 public class TicketController {
-    @Autowired
-    private TicketJsonHandler ticketJsonHandler;
+    private final DataPersistence<Event> eventJsonHandler;
+    private final DataPersistence<Ticket> ticketJsonHandler;
+    private final DataPersistence<Discount> discountJsonHandler;
+    private final DataPersistence<Client> clientJsonHandler;
+    private final NotificationSubject notificationSubject;
 
     @Autowired
-    private EventJsonHandler eventJsonHandler;
-
-    @Autowired
-    private DiscountJsonHandler discountJsonHandler;
-
-    @Autowired
-    private ClientJsonHandler clientJsonHandler;
-
-    @Autowired
-    private NotificationSubject notificationSubject;
+    public TicketController(
+            @Qualifier("eventJsonHandler") DataPersistence<Event> eventJsonHandler,
+            @Qualifier("ticketJsonHandler") DataPersistence<Ticket> ticketJsonHandler,
+            @Qualifier("discountJsonHandler") DataPersistence<Discount> discountJsonHandler,
+            @Qualifier("clientJsonHandler") DataPersistence<Client> clientJsonHandler,
+            NotificationSubject notificationSubject) {
+        this.eventJsonHandler = eventJsonHandler;
+        this.ticketJsonHandler = ticketJsonHandler;
+        this.discountJsonHandler = discountJsonHandler;
+        this.notificationSubject = notificationSubject;
+        this.clientJsonHandler = clientJsonHandler;
+    }
 
     @GetMapping
     public List<Ticket> getAllTickets() {

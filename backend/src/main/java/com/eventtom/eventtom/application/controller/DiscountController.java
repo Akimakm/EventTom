@@ -1,5 +1,6 @@
 package com.eventtom.eventtom.application.controller;
 
+import com.eventtom.eventtom.persistence.handlers.DataPersistence;
 import com.eventtom.eventtom.persistence.handlers.DiscountJsonHandler;
 import com.eventtom.eventtom.application.model.Discount;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.List;
 @RequestMapping("/api/discounts")
 public class DiscountController {
     @Autowired
-    private DiscountJsonHandler discountJsonHandler;
+    private DataPersistence<Discount> discountJsonHandler;
 
     @GetMapping
     public List<Discount> getAllDiscounts() {

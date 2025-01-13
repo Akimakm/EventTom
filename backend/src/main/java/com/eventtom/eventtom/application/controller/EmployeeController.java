@@ -1,5 +1,6 @@
 package com.eventtom.eventtom.application.controller;
 
+import com.eventtom.eventtom.persistence.handlers.DataPersistence;
 import com.eventtom.eventtom.persistence.handlers.EmployeeJsonHandler;
 import com.eventtom.eventtom.application.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.List;
 @RequestMapping("/api/employees")
 public class EmployeeController {
     @Autowired
-    private EmployeeJsonHandler employeeJsonHandler;
+    private DataPersistence<Employee> employeeJsonHandler;
 
     @GetMapping
     public List<Employee> getAllEmployees() {

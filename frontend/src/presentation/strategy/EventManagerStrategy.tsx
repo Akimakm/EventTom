@@ -6,13 +6,16 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 export class EventManagerStrategy extends RoleStrategy {
     renderDetails(eventDetails:any) {
         const progress = eventDetails.progress;
+        const threshold = eventDetails.threshold;
+
+        // Calculate the percentage position of the threshold
+        const thresholdPosition = Math.min(100, Math.max(0, (threshold / 100) * 100));
         const thresholdStatus =
             progress >= eventDetails.threshold
-                ? `${Math.round(progress - eventDetails.threshold)}% above threshold`
-                : `${Math.round(eventDetails.threshold - progress)}% below threshold`;
-
+                ? "10% above the threshold"
+                : "10% below the threshold";
         return (
-            <div>
+            <div className="event-details-container">
                 <h2>{eventDetails.title}</h2>
                 <p>{eventDetails.description}</p>
                 <p>Date: {eventDetails.date}</p>
@@ -22,9 +25,17 @@ export class EventManagerStrategy extends RoleStrategy {
                 <p>Fees: ${eventDetails.fee}</p>
                 <p>Tickets Sold: {eventDetails.ticketsSold}</p>
                 <p>Tickets Remaining: {eventDetails.ticketsAvailable}</p>
+                <p>Threshold: {eventDetails.threshold}</p>
                 <div>
-                    <div style={{ width: '100%', background: '#ddd' }}>
-                        <div style={{ width: `${progress}%`, background: 'green', height: '20px' }} />
+                    <div className="progress-bar-container">
+                        <div
+                            className="threshold-line"
+                            style={{ left: `calc(${thresholdPosition}% - 2px)` }}
+                        />
+                        <div
+                            className="progress-bar"
+                            style={{ width: `${progress}%` }}
+                        />
                     </div>
                     <p>{thresholdStatus}</p>
                 </div>
@@ -62,7 +73,10 @@ export class EventManagerStrategy extends RoleStrategy {
                                 <a className="mobile-hide notification-icon" >
                                     <div
                                         className="notification-wrapper"
-                                        onClick={toggleNotifications}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            toggleNotifications();
+                                        }}
                                     >
                                         <i className="fas fa-bell"></i>
                                         {showNotifications && (

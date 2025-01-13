@@ -57,8 +57,8 @@ const EventList: React.FC = () => {
             {/* Header */}
             <div className="top-header-area-event" id="sticker">
                 <div className="container">
-                    <div className="header-content">
-                        <div className="site-logo">
+                    <div className="header-content-event">
+                        <div className="site-logo-event">
                             <a href="/home">
                                 <img className="imagelogo" src={logo} alt="Logo" />
                             </a>
@@ -93,9 +93,7 @@ const EventList: React.FC = () => {
             <div className="latest-news-event pt-150 pb-150">
                 <div className="container">
                     <div className="section-title">
-                        <h3>
-                            <span className="orange-text">Coming</span> Events
-                        </h3>
+                        <h3> Coming Events</h3>
                         <p>
                             EventTom is the ideal platform for all ticket lovers and event
                             organisers. Join the EventTom community and secure the best seats for
@@ -108,7 +106,7 @@ const EventList: React.FC = () => {
                                 <div className="image-placeholder"></div>
                                 <div className="card-content">
                                     <h3>
-                                        <a href={`/events/${event.id}/details`}>{event.title}</a>
+                                        {event.title}
                                     </h3>
                                     <p>
                                         <i className="fas fa-calendar"></i> {event.date}

@@ -2,6 +2,7 @@ package com.eventtom.eventtom.application.controller;
 
 import com.eventtom.eventtom.persistence.handlers.ClientJsonHandler;
 import com.eventtom.eventtom.application.model.Client;
+import com.eventtom.eventtom.persistence.handlers.DataPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @RequestMapping("/api/clients")
 public class ClientController {
     @Autowired
-    private ClientJsonHandler clientJsonHandler;
+    private DataPersistence<Client> clientJsonHandler;
 
     @GetMapping
     public List<Client> getAllClients() {

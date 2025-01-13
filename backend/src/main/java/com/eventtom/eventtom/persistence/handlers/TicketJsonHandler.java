@@ -15,25 +15,6 @@ public class TicketJsonHandler implements DataPersistence<Ticket> {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final File file = new File("backend/src/main/java/com/eventtom/eventtom/persistence/storage/tickets.json");
 
-    @Override
-    public void save(Object object) {
-
-    }
-
-    @Override
-    public void delete(Object object) {
-
-    }
-
-    @Override
-    public void update(Object object) {
-
-    }
-
-    @Override
-    public Object get(Long id) {
-        return null;
-    }
 
     @Override
     public List<Ticket> readAll() {

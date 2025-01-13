@@ -1,111 +1,134 @@
-/* Texts in orange */
-.orange-text {
-    color: #F28123;
+/* General Reset */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-/* "Read More" button */
-a.read-more-btn {
-    display: inline-block;
-    margin-top: 15px;
-    color: #051922;
-    transition: 0.3s;
-    font-weight: 700;
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-a.read-more-btn:hover {
-    color: #F28123;
-}
-
-/* Section titles */
-.section-title h3 {
-    font-size: 40px;
-    position: relative;
-    padding-bottom: 15px;
-    text-align: center;
-}
-
-.section-title p {
-    font-size: 20px;
-    margin: 10px auto 0;
-    color: #555;
-    text-align: center;
-}
-
-/* Hero Section */
-.hero-bg {
-    background-image: url(../img/hero-bg.jpg);
-    background-size: cover;
-    background-position: center;
-}
-
-/* Top header */
+/* Header */
 .top-header-area {
-    position: absolute;
+    position: relative; /* Ensure the header stays within the layout flow */
     z-index: 999;
     width: 100%;
     padding: 25px 0;
+    background-color: #923c03; /* Dark background for header visibility */
+    color: #fff;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space between logo and nav menu */
+    flex-wrap: nowrap; /* Prevent wrapping for consistent layout */
+}
+
+.site-logo {
+    flex-shrink: 0; /* Prevent the logo from resizing */
+    margin-right: 20px; /* Add spacing between the logo and navigation menu */
+}
+
+.site-logo a img {
+    max-height: 70px; /* Adjust logo size */
+    width: auto;
+}
+
+/* Navigation Menu */
+nav.main-menu {
+    flex-grow: 1; /* Allow the nav menu to fill the remaining space */
+    display: flex;
+    justify-content: center; /* Center the navigation menu */
 }
 
 nav.main-menu ul {
     list-style: none;
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Center the menu items */
     margin: 0;
     padding: 0;
+    gap: 20px; /* Add space between menu items */
 }
 
 nav.main-menu ul li a {
     color: #fff;
-    font-weight: 900;
-    padding: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 10px 20px;
     transition: 0.3s;
 }
 
 nav.main-menu ul li a:hover,
 nav.main-menu ul li.current-list-item > a {
-    color: #F28123;
+    color: #f28123;
 }
 
-/* Flex utilities for responsive grids */
-.row {
+/* Header Icons */
+.header-icons {
     display: flex;
-    gap: 20px;
-}
-
-.col-lg-4 {
-    flex: 1 1 33%;
-}
-
-@media (max-width: 768px) {
-    .col-lg-4 {
-        flex: 1 1 100%;
-    }
-}
-
-/* Hero Text */
-.hero-area {
-    display: flex;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    height: 100vh;
-    padding: 0 20px;
+    gap: 15px; /* Spacing between icons */
 }
 
-.hero-text h1,
-.hero-text h2 {
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
-    color: #f4f4f4;
+.header-icons .notification-wrapper {
+    position: relative;
+}
+
+.header-icons .notification-wrapper i {
+    font-size: 1.5em;
+    color: #fff;
+    cursor: pointer;
+}
+
+.notification-dropdown {
+    position: absolute;
+    top: 30px; /* Adjust the distance from the bell */
+    right: 0; /* Align to the right of the bell */
+    background: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure it appears above other elements */
+    padding: 10px;
+    display: block; /* Always ensure visibility based on state */
+    width: 250px; /* Explicit width */
+    min-width: 200px; /* Minimum width for dynamic content */
+    max-width: 300px; /* Optional: Limit max width */
+}
+
+
+
+.notification-wrapper:hover .notification-dropdown {
+    display: block;
+}
+
+/* Hero Section */
+.hero-area {
+    height: 100vh; /* Full viewport height */
+    width: 100%; /* Full viewport width */
+    background: url(../img/hero-bg.jpg) no-repeat center center/cover; /* Cover entire section */
+    display: flex; /* Flexbox for centering text */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    color: #fff; /* Text color */
+    text-align: center; /* Align text to the center */
 }
 
 .hero-text h1 {
-    font-size: 5em;
+    font-size: 3em;
+    margin-bottom: 20px;
 }
 
 .hero-text h2 {
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 /* Buttons */
@@ -118,6 +141,7 @@ nav.main-menu ul li.current-list-item > a {
     border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
 }
 
 .create-event-btn:hover {
@@ -125,7 +149,31 @@ nav.main-menu ul li.current-list-item > a {
     transform: scale(1.05);
 }
 
-.imagelogo {
-    width: 200px;
-    height: auto;
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav.main-menu ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .header-icons {
+        margin-top: 10px;
+    }
+
+    .hero-area {
+        padding: 50px 20px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5em;
+    }
+
+    .hero-text h2 {
+        font-size: 1.2em;
+    }
 }

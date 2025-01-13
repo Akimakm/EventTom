@@ -1,5 +1,4 @@
-// WebSocketConfig.java
-package com.eventtom.eventtom.persistence.handlers.config;
+package com.eventtom.eventtom.application.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

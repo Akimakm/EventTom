@@ -1,4 +1,4 @@
-package com.eventtom.eventtom.persistence.handlers.observer;
+package com.eventtom.eventtom.application.observer;
 import com.eventtom.eventtom.application.model.Notification;
 
 public interface Observer {

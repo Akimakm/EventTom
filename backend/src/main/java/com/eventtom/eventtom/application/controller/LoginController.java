@@ -1,5 +1,6 @@
 package com.eventtom.eventtom.application.controller;
 
+import com.eventtom.eventtom.persistence.handlers.DataPersistence;
 import com.eventtom.eventtom.persistence.handlers.UserJsonHandler;
 import com.eventtom.eventtom.application.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 public class LoginController {
     @Autowired
-    private UserJsonHandler userJsonHandler;
+    private DataPersistence<User> userJsonHandler;
 
     // Session store to track logged-in users
     private final Map<String, String> sessionStore = new HashMap<>();

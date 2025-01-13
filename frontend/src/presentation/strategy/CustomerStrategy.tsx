@@ -11,7 +11,7 @@ export class CustomerStrategy extends RoleStrategy {
         const { handleQuantityChange, handleVoucherChange, handlePurchase } = handlers;
 
         return (
-            <div>
+            <div className="event-details-container">
                 <h2>{eventDetails.title}</h2>
                 <p>{eventDetails.description}</p>
                 <p>Date: {eventDetails.date}</p>
@@ -66,7 +66,6 @@ export class CustomerStrategy extends RoleStrategy {
                                     <img className="imagelogo" src={logo} alt="EventTom" />
                                 </a>
                             </div>
-
                             {/* Navigation */}
                             <nav className="main-menu">
                                 <ul className="menu-center">
@@ -78,31 +77,32 @@ export class CustomerStrategy extends RoleStrategy {
                                     </li>
                                 </ul>
                             </nav>
-
                             {/* Icons */}
                             <div className="header-icons">
-                                <a className="mobile-hide notification-icon" >
-                                <div
-                                    className="notification-wrapper"
-                                    onClick={toggleNotifications}
-                                >
-                                    <i className="fas fa-bell"></i>
-                                    {showNotifications && (
-                                        <div className="notification-dropdown">
-                                            <ul>
-                                                {notifications.map((notif: string, index: number) => (
-                                                    <li key={index}>{notif}</li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
-                                </div>
+                                <a className="mobile-hide notification-icon">
+                                    <div
+                                        className="notification-wrapper"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            toggleNotifications();
+                                        }}
+                                    >
+                                        <i className="fas fa-bell"></i>
+                                        {showNotifications && (
+                                            <div className="notification-dropdown">
+                                                <ul>
+                                                    {notifications.map((notif: string, index: number) => (
+                                                        <li key={index}>{notif}</li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )}
+                                    </div>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 {/* Hero Section */}
                 <div className="hero-area hero-bg">
                     <div className="container">
@@ -117,6 +117,7 @@ export class CustomerStrategy extends RoleStrategy {
                     </div>
                 </div>
             </div>
+
         );
     }
 }

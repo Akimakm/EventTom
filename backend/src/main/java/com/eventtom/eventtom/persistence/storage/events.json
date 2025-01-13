@@ -1,7 +1,7 @@
 [ {
   "id" : 1,
   "title" : "Rock Concert",
-  "numberOfTickets" : 25,
+  "numberOfTickets" : 3,
   "ticketBasePrice" : 50.0,
   "fee" : 30.0,
   "date" : "2024-05-15",

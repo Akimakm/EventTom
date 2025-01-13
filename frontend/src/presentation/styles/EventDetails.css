@@ -1,0 +1,123 @@
+/* General Reset */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Event Details Container */
+.event-details-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 50px auto; /* Center the content on the page */
+    padding: 20px;
+    background-color: #fff; /* White background for clarity */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    color: #333; /* Text color */
+    position: relative; /* Ensure child elements stay within the container */
+    overflow: hidden; /* Prevent overflow issues */
+}
+
+/* Event Title */
+.event-details-container h2 {
+    font-size: 2rem;
+    color: #923c03; /* Matches the header color in the previous CSS */
+    margin-bottom: 15px;
+    border-bottom: 2px solid #f28123; /* Adds a decorative underline */
+    padding-bottom: 5px;
+}
+
+/* Progress Bar Container */
+.event-details-container .progress-bar-container {
+    width: 100%;
+    background-color: #ddd; /* Light gray for the background */
+    border-radius: 10px; /* Match the card's rounded corners */
+    overflow: hidden; /* Clip the inner progress bar */
+    margin: 20px 0; /* Add spacing above and below the progress bar */
+    position: relative; /* Enable positioning for threshold line */
+    height: 20px; /* Height of the progress bar */
+}
+
+/* Progress Bar */
+.event-details-container .progress-bar {
+    background-color: green; /* Green for the progress */
+    height: 100%; /* Fill the height of the container */
+    border-radius: 10px 0 0 10px; /* Rounded edges on the left side */
+    transition: width 0.3s ease; /* Smooth transition for progress change */
+    position: relative; /* Relative positioning for threshold overlay */
+}
+
+/* Threshold Indicator */
+.event-details-container .threshold-line {
+    position: absolute;
+    top: 0;
+    left: calc(var(--threshold-position, 0%) - 2px); /* Dynamic position based on threshold */
+    width: 4px; /* Width of the vertical line */
+    height: 100%; /* Match the height of the progress bar */
+    background-color: red; /* Red to indicate the threshold */
+    border-radius: 2px; /* Rounded edges for a polished look */
+    z-index: 2; /* Ensure the threshold line appears on top */
+}
+
+/* Event Details Paragraphs */
+.event-details-container p {
+    font-size: 1rem;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+/* Highlight the Price and Tickets Available */
+.event-details-container p:nth-child(5),
+.event-details-container p:nth-child(7) {
+    font-weight: bold;
+    color: #f28123; /* Matches the hover color from the header nav */
+}
+
+/* Buttons Container */
+.event-details-container .buttons-container {
+    display: flex;
+    gap: 15px; /* Spacing between buttons */
+    margin-top: 20px;
+}
+
+/* Buttons */
+.event-details-container button {
+    background-color: #f28123; /* Matches the "hover" effect from the nav */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.event-details-container button:hover {
+    background-color: #d96a1a; /* Slightly darker for hover effect */
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .event-details-container {
+        width: 95%; /* Slightly larger for smaller screens */
+    }
+
+    .event-details-container h2 {
+        font-size: 1.8rem;
+    }
+
+    .event-details-container p {
+        font-size: 0.9rem;
+    }
+
+    .event-details-container button {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+}
