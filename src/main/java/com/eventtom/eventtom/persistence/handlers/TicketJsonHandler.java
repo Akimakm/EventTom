@@ -26,6 +26,7 @@ public class TicketJsonHandler implements DataPersistence<Ticket> {
         // Initialize the S3 client
         this.s3Client = S3Client.builder()
                 .region(Region.US_EAST_1) // Replace with your AWS region
+                .credentialsProvider(software.amazon.awssdk.auth.credentials.AnonymousCredentialsProvider.create())
                 .build();
     }
 
