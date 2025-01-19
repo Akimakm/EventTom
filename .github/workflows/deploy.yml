@@ -21,6 +21,10 @@ jobs:
           java-version: '20'
           distribution: 'temurin'
 
+      # Step: Add execute permission to mvnw
+      - name: Fix permissions for mvnw
+        run: chmod +x ./mvnw
+
       # Step 3: Build the application
       - name: Build the Spring Boot app
         run: ./mvnw clean package -DskipTests
