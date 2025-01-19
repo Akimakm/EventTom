@@ -138,7 +138,6 @@ public class TicketController {
         }
         eventJsonHandler.writeAll(events);
 
-        // Optionally, create ticket records (if applicable)
         List<Ticket> tickets = new ArrayList<>(ticketJsonHandler.readAll());
         for (int i = 0; i < quantity; i++) {
             Ticket ticket = new Ticket();
