@@ -48,7 +48,7 @@ jobs:
           echo "${{ secrets.EC2_KEY }}" > private_key.pem
           chmod 600 private_key.pem
 
-      # Step 7: Install Docker on EC2 (idempotent)
+      # Step 8: Install Docker on EC2 (idempotent)
       - name: Install Docker on EC2
         run: |
           ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@44.208.179.224 << 'EOF'
@@ -60,12 +60,12 @@ jobs:
           fi
           EOF
 
-      # Step 8: Connect to EC2 and deploy the container
+      # Step 9: Connect to EC2 and deploy the container
       - name: Deploy Docker container on EC2
         run: |
           ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@44.208.179.224 << 'EOF'
-          docker pull ${{ secrets.DOCKER_USERNAME }}/spring-boot-app:latest
-          docker stop spring-boot-app || true
-          docker rm spring-boot-app || true
-          docker run -d --name spring-boot-app -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/spring-boot-app:latest
+          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/spring-boot-app:latest
+          sudo docker stop spring-boot-app || true
+          sudo docker rm spring-boot-app || true
+          sudo docker run -d --name spring-boot-app -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/spring-boot-app:latest
           EOF
