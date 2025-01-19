@@ -51,7 +51,7 @@ jobs:
       # Step 7: Install Docker on EC2 (idempotent)
       - name: Install Docker on EC2
         run: |
-          ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+          ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@44.208.179.224 << 'EOF'
           if ! [ -x "$(command -v docker)" ]; then
             sudo apt update
             sudo apt install -y docker.io
@@ -63,7 +63,7 @@ jobs:
       # Step 8: Connect to EC2 and deploy the container
       - name: Deploy Docker container on EC2
         run: |
-          ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+          ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@44.208.179.224 << 'EOF'
           docker pull ${{ secrets.DOCKER_USERNAME }}/spring-boot-app:latest
           docker stop spring-boot-app || true
           docker rm spring-boot-app || true
