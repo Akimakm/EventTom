@@ -4,6 +4,7 @@ import com.eventtom.eventtom.application.model.Client;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.stereotype.Component;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
@@ -26,6 +27,7 @@ public class ClientJsonHandler implements DataPersistence<Client> {
         // Initialize the S3 client
         this.s3Client = S3Client.builder()
                 .region(Region.US_EAST_1) // Set your region
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
     }
 
