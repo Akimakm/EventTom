@@ -12,7 +12,7 @@ import java.io.File;
 @Component
 public class EventJsonHandler implements DataPersistence<Event> {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final File file = new File("backend/src/main/java/com/eventtom/eventtom/persistence/storage/events.json");
+    private final File file = new File("src/main/java/com/eventtom/eventtom/persistence/storage/events.json");
 
     @Override
     public List<Event> readAll() {

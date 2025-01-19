@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class TicketJsonHandler implements DataPersistence<Ticket> {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final File file = new File("backend/src/main/java/com/eventtom/eventtom/persistence/storage/tickets.json");
+    private final File file = new File("src/main/java/com/eventtom/eventtom/persistence/storage/tickets.json");
 
 
     @Override

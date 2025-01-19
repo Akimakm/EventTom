@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 public class UserJsonHandler implements DataPersistence<User> {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final File file = new File("backend/src/main/java/com/eventtom/eventtom/persistence/storage/users.json");
+    private final File file = new File("src/main/java/com/eventtom/eventtom/persistence/storage/users.json");
 
     @Override
     public List<User> readAll() {
