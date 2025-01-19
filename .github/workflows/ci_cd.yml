@@ -46,6 +46,10 @@ jobs:
           java-version: '20'
           distribution: 'temurin'
 
+      # Step: Add execute permission to mvnw
+      - name: Fix permissions for mvnw
+        run: chmod +x ./mvnw
+
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
