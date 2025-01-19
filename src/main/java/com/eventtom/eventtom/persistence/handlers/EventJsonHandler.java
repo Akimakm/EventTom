@@ -26,7 +26,6 @@ public class EventJsonHandler implements DataPersistence<Event> {
         // Initialize the S3 client
         this.s3Client = S3Client.builder()
                 .region(Region.US_EAST_1) // Replace with your AWS region
-                .credentialsProvider(ProfileCredentialsProvider.create()) // Use default credentials provider
                 .build();
     }
 

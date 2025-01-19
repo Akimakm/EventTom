@@ -26,7 +26,6 @@ public class ClientJsonHandler implements DataPersistence<Client> {
         // Initialize the S3 client
         this.s3Client = S3Client.builder()
                 .region(Region.US_EAST_1) // Set your region
-                .credentialsProvider(ProfileCredentialsProvider.create()) // Set credentials
                 .build();
     }
 
