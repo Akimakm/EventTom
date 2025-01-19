@@ -19,6 +19,10 @@ jobs:
           java-version: '20'
           distribution: 'temurin'
 
+      # Step: Add execute permission to mvnw
+      - name: Fix permissions for mvnw
+        run: chmod +x ./mvnw
+
       - name: Build and test
         run: ./mvnw clean test
 
