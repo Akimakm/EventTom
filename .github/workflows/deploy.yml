@@ -60,7 +60,63 @@ jobs:
           fi
           EOF
 
-      # Step 9: Connect to EC2 and deploy the container
+      # Step 9: Install and Configure CloudWatch Agent
+      - name: Install and Configure CloudWatch Agent
+        run: |
+          ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+          # Install CloudWatch agent
+          sudo apt update
+          sudo apt install -y amazon-cloudwatch-agent
+
+          # Configure the CloudWatch agent
+          cat <<CONFIG > /opt/aws/amazon-cloudwatch-agent/bin/config.json
+          {
+            "agent": {
+              "metrics_collection_interval": 60,
+              "logfile": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log"
+            },
+            "metrics": {
+              "append_dimensions": {
+                "InstanceId": "\${aws:InstanceId}"
+              },
+              "metrics_collected": {
+                "cpu": {
+                  "measurement": [
+                    "cpu_usage_idle",
+                    "cpu_usage_user",
+                    "cpu_usage_system"
+                  ],
+                  "resources": ["*"]
+                },
+                "mem": {
+                  "measurement": [
+                    "mem_used_percent"
+                  ]
+                }
+              }
+            },
+            "logs": {
+              "logs_collected": {
+                "files": {
+                  "collect_list": [
+                    {
+                      "file_path": "/var/log/syslog",
+                      "log_group_name": "EC2-Syslog",
+                      "log_stream_name": "{instance_id}"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+          CONFIG
+
+          # Start the CloudWatch agent
+          sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a start -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+          EOF
+      
+
+      # Step 10: Connect to EC2 and deploy the container
       - name: Deploy Docker container on EC2
         run: |
           ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@${{secrets.EC2_HOST}} << 'EOF'

@@ -3,7 +3,7 @@ import { Client } from "@stomp/stompjs";
 
 const NotificationWebSocket = (onNotification: (notification: any) => void) => {
     const client = new Client({
-        brokerURL: "ws://98.84.147.53:8080/ws", // Your backend WebSocket endpoint
+        brokerURL: "ws://34.202.193.181:8080/ws", // Your backend WebSocket endpoint
         reconnectDelay: 5000, // Reconnect after 5 seconds
         onConnect: () => {
             console.log("Connected to WebSocket");
