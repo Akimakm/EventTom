@@ -65,7 +65,7 @@ jobs:
   build:
     name: Build Application
     runs-on: ubuntu-latest
-    needs: tests # Run this job only after the 'tests' job succeeds
+    needs: sonarcloud
 
     steps:
       # Step 1: Checkout the repository
