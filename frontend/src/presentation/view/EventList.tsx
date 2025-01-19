@@ -20,7 +20,7 @@ const EventList: React.FC = () => {
 
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/events")
+        fetch("http://44.208.179.224:8080/api/events")
             .then((response) => response.json())
             .then((data: Event[]) => setEvents(data))
             .catch((error) => console.error("Error fetching events:", error));

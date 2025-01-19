@@ -11,7 +11,7 @@ const EventPageContainer: React.FC<EventPageContainerProps> = ({ eventId, role, 
 
   useEffect(() => {
     const clientId = localStorage.getItem('id')
-    const url = `http://localhost:8080/api/events/${eventId}/details?role=${role}&clientId=${clientId}`
+    const url = `http://44.208.179.224:8080/api/events/${eventId}/details?role=${role}&clientId=${clientId}`
     fetch(url)
       .then((response) => response.json())
       .then((data) => setEventDetails(data))
