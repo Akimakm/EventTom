@@ -4,7 +4,6 @@ import com.eventtom.eventtom.application.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.stereotype.Component;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -27,7 +26,7 @@ public class UserJsonHandler implements DataPersistence<User> {
         // Initialize the S3 client
         this.s3Client = S3Client.builder()
                 .region(Region.US_EAST_1) // Replace with your AWS region
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .credentialsProvider(software.amazon.awssdk.auth.credentials.AnonymousCredentialsProvider.create())
                 .build();
     }
 
