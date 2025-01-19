@@ -13,7 +13,7 @@ resource "aws_vpc" "main" {
   }
 }
 
-# Public Subnet in AZ 1
+# Public Subnet
 resource "aws_subnet" "public_az1" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.0.1.0/24"
@@ -25,37 +25,12 @@ resource "aws_subnet" "public_az1" {
   }
 }
 
-# Private Subnet in AZ 1
-resource "aws_subnet" "private_az1" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = "10.0.3.0/24"
-  availability_zone = "us-east-1a"
-
-  tags = {
-    Name = "private-subnet-az1"
-  }
-}
-
 # Internet Gateway
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
     Name = "internet-gateway"
-  }
-}
-
-# NAT Gateway
-resource "aws_eip" "nat" {
-  domain = "vpc"
-}
-
-resource "aws_nat_gateway" "nat" {
-  allocation_id = aws_eip.nat.id
-  subnet_id     = aws_subnet.public_az1.id
-
-  tags = {
-    Name = "nat-gateway"
   }
 }
 
@@ -73,30 +48,9 @@ resource "aws_route_table" "public" {
   }
 }
 
-# Associate Public Route Table with Subnet
 resource "aws_route_table_association" "public_az1" {
   subnet_id      = aws_subnet.public_az1.id
   route_table_id = aws_route_table.public.id
-}
-
-# Private Route Table
-resource "aws_route_table" "private" {
-  vpc_id = aws_vpc.main.id
-
-  route {
-    cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat.id
-  }
-
-  tags = {
-    Name = "private-route-table"
-  }
-}
-
-# Associate Private Route Table with Subnet
-resource "aws_route_table_association" "private_az1" {
-  subnet_id      = aws_subnet.private_az1.id
-  route_table_id = aws_route_table.private.id
 }
 
 # Security Group for EC2
@@ -130,17 +84,87 @@ resource "aws_security_group" "ec2_sg" {
   }
 }
 
-# EC2 Instance
+# EC2 Instance with CloudWatch Agent Installation
 resource "aws_instance" "backend" {
   ami           = "ami-0e2c8caa4b6378d8c" # Ubuntu Server 24.04 LTS (HVM), SSD Volume Type
   instance_type = "t2.micro"
-  subnet_id     = aws_subnet.public_az1.id    # Use the public subnet for easier initial access
+  subnet_id     = aws_subnet.public_az1.id
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
   key_name  = "ssh_key"
 
   tags = {
     Name = "backend-instance"
   }
+
+  user_data = <<EOF
+#!/bin/bash
+# Update and install prerequisites
+sudo apt-get update -y
+sudo apt-get install -y curl
+
+# Install the CloudWatch Agent
+curl https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb -o amazon-cloudwatch-agent.deb
+sudo dpkg -i amazon-cloudwatch-agent.deb
+
+# Create CloudWatch Agent configuration
+cat <<CONFIG > /opt/aws/amazon-cloudwatch-agent/bin/config.json
+{
+  "agent": {
+    "metrics_collection_interval": 60,
+    "logfile": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log"
+  },
+  "metrics": {
+    "append_dimensions": {
+      "InstanceId": "\${aws:InstanceId}"
+    },
+    "metrics_collected": {
+      "cpu": {
+        "measurement": [
+          "cpu_usage_idle",
+          "cpu_usage_user",
+          "cpu_usage_system"
+        ],
+        "resources": ["*"]
+      },
+      "mem": {
+        "measurement": [
+          "mem_used_percent"
+        ]
+      },
+      "disk": {
+        "measurement": [
+          "used_percent"
+        ],
+        "resources": [
+          "/"
+        ],
+        "ignore_file_system_types": [
+          "aufs",
+          "overlay",
+          "squashfs"
+        ]
+      }
+    }
+  },
+  "logs": {
+    "logs_collected": {
+      "files": {
+        "collect_list": [
+          {
+            "file_path": "/var/log/syslog",
+            "log_group_name": "EC2-Syslog",
+            "log_stream_name": "{instance_id}"
+          }
+        ]
+      }
+    }
+  }
+}
+CONFIG
+
+# Start the CloudWatch Agent
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a start -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+EOF
 }
 
 # Elastic IP for EC2
