@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 public class ClientJsonHandler implements DataPersistence<Client>{
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final File file = new File("src/main/java/com/eventtom/eventtom/persistence/storage/clients.json");
+    private final File file = new File(getClass().getClassLoader().getResource("storage/clients.json").getFile());
 
     @Override
     public List<Client> readAll() {
