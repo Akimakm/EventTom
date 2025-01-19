@@ -5,7 +5,7 @@ FROM openjdk:20-jdk-slim
 WORKDIR /app
 
 # Copy the JAR file from the build stage
-COPY target/*.jar eventtom.jar
+COPY eventtom-0.0.1-SNAPSHOT.jar eventtom.jar
 
 # Expose the application port
 EXPOSE 8080
