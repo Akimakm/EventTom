@@ -3,6 +3,7 @@ package com.eventtom.eventtom.application.controller;
 import com.eventtom.eventtom.persistence.handlers.DataPersistence;
 import com.eventtom.eventtom.persistence.handlers.UserJsonHandler;
 import com.eventtom.eventtom.application.model.User;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 public class LoginController {
     @Autowired
+    @Setter
     private DataPersistence<User> userJsonHandler;
 
     // Session store to track logged-in users
