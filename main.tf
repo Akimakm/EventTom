@@ -186,6 +186,45 @@ resource "aws_eip" "backend_eip" {
   }
 }
 
+# S3 Bucket
+resource "aws_s3_bucket" "my_bucket" {
+  bucket = "my-backend-storage-bucket-1234"
+
+  tags = {
+    Name = "my-backend-storage-bucket"
+  }
+}
+
+# S3 Bucket Policy to Restrict Access to VPC
+resource "aws_s3_bucket_policy" "my_bucket_policy" {
+  bucket = aws_s3_bucket.my_bucket.id
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid       = "AllowAccessFromVPC",
+        Effect    = "Allow",
+        Principal = "*",
+        Action    = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:ListBucket"
+        ],
+        Resource = [
+          aws_s3_bucket.my_bucket.arn,
+          "${aws_s3_bucket.my_bucket.arn}/*"
+        ],
+        Condition = {
+          StringEquals = {
+            "aws:SourceVpc" = aws_vpc.main.id
+          }
+        }
+      }
+    ]
+  })
+}
+
 
 
 

@@ -18,7 +18,7 @@ const LoginPage = () => {
         };
 
         try {
-            const response = await fetch("http://localhost:8080/api/auth/login", {
+            const response = await fetch("http://44.208.179.224:8080/api/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
