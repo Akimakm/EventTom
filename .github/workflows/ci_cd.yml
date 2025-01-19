@@ -77,6 +77,10 @@ jobs:
         with:
           name: spring-boot-app
 
+      # Step 2: Check contents of current directory
+      - name: Verify Files
+        run: ls -al
+
       # Step 2: Build Docker image
       - name: Build Docker image
         run: |
