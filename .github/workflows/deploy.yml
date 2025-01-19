@@ -64,9 +64,15 @@ jobs:
       - name: Install and Configure CloudWatch Agent
         run: |
           ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
-          # Install CloudWatch agent
-          sudo apt update
-          sudo apt install -y amazon-cloudwatch-agent
+          # Install prerequisites
+          sudo apt-get update
+          sudo apt-get install -y curl
+
+          # Add the Amazon CloudWatch Agent repository
+          curl https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb -o amazon-cloudwatch-agent.deb
+
+          # Install the CloudWatch Agent
+          sudo dpkg -i amazon-cloudwatch-agent.deb
 
           # Configure the CloudWatch agent
           cat <<CONFIG > /opt/aws/amazon-cloudwatch-agent/bin/config.json
@@ -114,6 +120,7 @@ jobs:
           # Start the CloudWatch agent
           sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a start -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
           EOF
+      
       
 
       # Step 10: Connect to EC2 and deploy the container
