@@ -167,7 +167,7 @@ resource "aws_security_group" "ec2_sg" {
 # EC2 Instance
 resource "aws_instance" "backend" {
   ami           = "ami-0e2c8caa4b6378d8c" # Ubuntu Server 24.04 LTS (HVM), SSD Volume Type
-  instance_type = "t3.nano"
+  instance_type = "t2.micro"
   subnet_id     = aws_subnet.public_az1.id    # Use the public subnet for easier initial access
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
   key_name  = "ssh_key"
