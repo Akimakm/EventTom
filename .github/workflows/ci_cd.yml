@@ -71,6 +71,9 @@ jobs:
     needs: build # Run this job only after the 'build' job succeeds
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       # Step 1: Download the artifact from the build job
       - name: Download Artifact
         uses: actions/download-artifact@v3
