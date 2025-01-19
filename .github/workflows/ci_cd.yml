@@ -60,8 +60,8 @@ jobs:
 
       - name: Run SonarCloud Analysis
         run: ./mvnw sonar:sonar \
-          -Dsonar.projectKey=your-project-key \
-          -Dsonar.organization=your-organization \
+          -Dsonar.projectKey=akimakm \
+          -Dsonar.organization=Akimakm \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
