@@ -51,8 +51,8 @@ jobs:
       # Step 7: Install Docker on EC2 (idempotent)
       - name: Install Docker on EC2
         run: |
-            ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'          
-            if ! [ -x "$(command -v docker)" ]; then
+          ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+          if ! [ -x "$(command -v docker)" ]; then
             sudo apt update
             sudo apt install -y docker.io
             sudo systemctl start docker
