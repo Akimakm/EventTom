@@ -67,5 +67,9 @@ jobs:
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/spring-boot-app:latest
           sudo docker stop spring-boot-app || true
           sudo docker rm spring-boot-app || true
-          sudo docker run -d --name spring-boot-app -p 8080:8080 -e AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}} -e AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}} -e AWS_SESSION_TOKEN=${{secrets.AWS_SESSION_TOKEN}} akimakm53/spring-boot-app:latest
+          sudo docker run -d --name spring-boot-app -p 8080:8080 \
+            -e AWS_ACCESS_KEY_ID=ASIAU3X7GXWAIPDFZ7CJ \
+            -e AWS_SECRET_ACCESS_KEY=ij+rU+PQupXiLhq0FNEuDFF4e9ix9tq54QXps0SH \
+            -e AWS_SESSION_TOKEN=IQoJb3JpZ2luX2VjEIz//////////wEaCXVzLXdlc3QtMiJIMEYCIQCQDR+1VHMSJuV13E41QitwCBm9oq2GtbUE4BEksDJo/gIhAKCocGVln4sGGpeDPpWuLpVekr6PxymGf44/Q2UOuxfjKrUCCIX//////////wEQARoMMzM0NDY4OTIyNzUyIgzreK+LhxfNuw9k5x4qiQIWeLpyvjdgq5k+Rcdtf0D6CGaE4BYTFvRDBLYzZ0kD/9mWGjYyHsKpSgCYhFZBNHd0gNKM+msqcVfVzQM/B3cKcSZ5tmmFeg0flsdOhPQALo8wH0p+0BlPCZXu+wt8A6iCs8dyNdz2TXzHIZxzseSEE7mIEnShq52eRXDglD81mu/+i8N+gEFrKm7gLQCcbGqxF6bl6+lOMV2nb/BY4SQwnoyYzwCXSq/UI1X6Du1f4hm9YaOmVjqzO6M2gFHKHFwwyyv5pVVggb9JVccfPGRHni4DZ7BFtI7FAs9uKlmJ5+RRxUijhBeoGgx04b2ucQySnB+SKlD1MFOe2MYTBneIzqAeYhRLoELOMM3isbwGOpwBv25W+mczKn4q+tEOXt9i3fGs4+nM6JxAauCT3SS3QiVac2vGqPKCSMpA2cKbCrUE5Z2SWuIGCtQvjOQqvLZh3E8iw6MN3A70NgCL5+uWNeBqx049du4pwYu6dqr5Tf9SRIsv6sK3uaHSHyQxJ4qIwtJwh8JeuSbphZMIwKZSxy+j3s4m9lxluA0f3AN/3HEQCemZ2ht9ZxwgTZNA \
+            akimakm53/spring-boot-app:latest
           EOF
