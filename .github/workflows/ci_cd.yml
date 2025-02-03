@@ -156,6 +156,10 @@ jobs:
           sudo docker rm spring-boot-app || true
           sudo docker run -d --name spring-boot-app -p 8080:8080 \
             -v /home/ubuntu/container-logs:/app/logs \
+            --log-driver=local \
+            --log-opt max-size=10m \
+            --log-opt max-file=3 \
+            --log-opt path=/app/logs/app.log \
             -e AWS_ACCESS_KEY_ID="${{secrets.AWS_ACCESS_KEY_ID}}" \
             -e AWS_SECRET_ACCESS_KEY="${{secrets.AWS_SECRET_ACCESS_KEY}}" \
             -e AWS_SESSION_TOKEN="${{secrets.AWS_SESSION_TOKEN}}" \
