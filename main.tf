@@ -212,6 +212,11 @@ cat <<CONFIG > /opt/aws/amazon-cloudwatch-agent/bin/config.json
             "file_path": "/var/log/syslog",
             "log_group_name": "EC2-Syslog",
             "log_stream_name": "ec2-instance-logs"
+          },
+          {
+            "file_path": "/home/ubuntu/container-logs/app.log",
+            "log_group_name": "EC2-Syslog",
+            "log_stream_name": "spring-boot-app-logs"
           }
         ]
       }
