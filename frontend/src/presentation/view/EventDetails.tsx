@@ -70,7 +70,7 @@ export const EventDetailsPage = ({ role, eventDetails }: { role: string; eventDe
     const handlePurchase = () => {
         const clientId = localStorage.getItem('id'); // Retrieve client ID from local storage
 
-        fetch(`http://34.202.193.181:8080/api/tickets/buy`, {
+        fetch(`http://44.221.211.21:8080/api/tickets/buy`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

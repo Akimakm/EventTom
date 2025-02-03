@@ -147,6 +147,7 @@ resource "aws_instance" "backend" {
   subnet_id     = aws_subnet.public_az1.id
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
   key_name      = "ssh_key"
+  iam_instance_profile = "LabInstanceProfile"
 
   tags = {
     Name = "backend-instance"
@@ -167,7 +168,8 @@ cat <<CONFIG > /opt/aws/amazon-cloudwatch-agent/bin/config.json
 {
   "agent": {
     "metrics_collection_interval": 60,
-    "logfile": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log"
+    "logfile": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+    "region": "us-east-1"
   },
   "metrics": {
     "append_dimensions": {
@@ -271,3 +273,4 @@ resource "aws_s3_bucket_policy" "my_bucket_policy" {
     ]
   })
 }
+
