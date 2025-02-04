@@ -160,4 +160,5 @@ jobs:
             -e AWS_SECRET_ACCESS_KEY="${{secrets.AWS_SECRET_ACCESS_KEY}}" \
             -e AWS_SESSION_TOKEN="${{secrets.AWS_SESSION_TOKEN}}" \
             ${{ secrets.DOCKER_USERNAME }}/spring-boot-app:latest
+          sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json -s
           EOF
