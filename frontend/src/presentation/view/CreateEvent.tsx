@@ -26,7 +26,7 @@ const CreateEvent: React.FC= () => {
 
         e.preventDefault();
 
-        fetch('http://13.216.127.162:8080/api/events', {
+        fetch('http://35.173.109.243:8080/api/events', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
