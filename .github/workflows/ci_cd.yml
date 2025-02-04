@@ -156,11 +156,8 @@ jobs:
           sudo docker stop spring-boot-app || true
           sudo docker rm spring-boot-app || true
           sudo docker run -d --name spring-boot-app -p 8080:8080 \
-            -v /home/ubuntu/container-logs:/app/logs \
             -e AWS_ACCESS_KEY_ID="${{secrets.AWS_ACCESS_KEY_ID}}" \
             -e AWS_SECRET_ACCESS_KEY="${{secrets.AWS_SECRET_ACCESS_KEY}}" \
             -e AWS_SESSION_TOKEN="${{secrets.AWS_SESSION_TOKEN}}" \
             ${{ secrets.DOCKER_USERNAME }}/spring-boot-app:latest
-          sudo ln -sf /var/lib/docker/containers/$(docker inspect -f '{{.Id}}' spring-boot-app)/$(docker inspect -f '{{.Id}}' spring-boot-app)-json.log \
-            /home/ubuntu/container-logs/app.log
           EOF
